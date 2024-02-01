@@ -1,0 +1,31 @@
+﻿@page "/"
+@using DemoLibrary.Models
+@using DemoLibrary.Handlers
+@using DemoLibrary.Queries
+@inject MediatR.IMediator _IMediator
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<ul>
+    @foreach (var p in people)
+    {
+        <li>@p.FirstName @p.LastName</li>
+    }
+</ul>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+@code
+{
+    List<PersonModel> people;
+    protected override async Task OnInitializedAsync()
+    {
+        people = await _IMediator.Send(new GetPersonListQuery());
+       // throw new NotImplementedException();
+        // return base.OnInitializedAsync();
+        // get list of person
+
+    }
+}
